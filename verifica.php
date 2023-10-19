@@ -24,16 +24,30 @@ while($login=$resultado->fetch(PDO::FETCH_ASSOC)) {
 if(password_verify($password, $login['password'])) {
 /*
 aqui se podra crear sesiones
+Se carga el arreglo $_SESSION[''] con 
+los datos que almacenó $login, por ejemplo S_SESSION['nombre']
 */
+session_start();
+$_SESSION['nombre'] = $login['nombre'];
+$_SESSION['cargo'] = $login['cargo'];
 $contador++;
 }
 }
 
 
 if ($contador>0) {
-echo "el usuario existe";
+    /* aquí se redirige a la pantalla
+     del tipo de  usuario con header(location:"pantalla.php")
+     según $_SESSION['cargo'].
+     También se deberá cambiar de lugar el cerrar conexión
+    en el archivo destino.
+    Se deberá crear un archivo cerrar sesión
+    y agregar un botón que redirija en la pantalla del usuario.
+
+    */
+echo " Hola ".$_SESSION['cargo']."   ".$_SESSION['nombre'];
 } else {
-echo "el usuario no existe";
+echo "Usuario o contraseña no válida";
 }
 
 //cierro la conexion
